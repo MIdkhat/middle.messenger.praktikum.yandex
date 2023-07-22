@@ -147,6 +147,7 @@ export class MessengerPage extends Block {
   }
 
   async createNewChatSubmit(e: Event) {
+    console.log(store);
     e.preventDefault();
     const form = e.currentTarget as HTMLFormElement;
     if (!form) return;
