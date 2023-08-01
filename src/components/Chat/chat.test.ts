@@ -17,7 +17,7 @@ const data = {
     unread_count: 3,
   },
   message: 'Hello, how are you?',
-  date: '2023-07-28',
+  date: '2023-07-29',
 };
 
 registerHandlebarsHelpers();
