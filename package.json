@@ -16,7 +16,7 @@
     "lint:eslint": "eslint src",
     "lint:stylelint": "stylelint \"src/**/*.scss\"",
     "test": "mocha --require ts-node/register './src/**/*.test.ts'",
-    "precommit": "npm run test && npm run build"
+    "precommit": "npm run test && lint:eslint && npm run build"
   },
   "husky": {
     "hooks": {
