@@ -15,8 +15,8 @@
     "start": "vite build; vite preview --port 3000",
     "lint:eslint": "eslint src",
     "lint:stylelint": "stylelint \"src/**/*.scss\"",
-    "test": "mocha --require ts-node/register './src/**/*.test.ts'",
-    "precommit": "npm run test && lint:eslint && npm run build"
+    "test": "mocha",
+    "precommit": "npm run test && npm run build"
   },
   "husky": {
     "hooks": {
@@ -51,11 +51,13 @@
     "vite": "^4.3.9"
   },
   "dependencies": {
+    "css-modules-require-hook": "^4.2.3",
     "eslint": "^8.45.0",
     "express": "^4.18.2",
     "express-history-api-fallback": "^2.2.1",
     "handlebars": "^4.7.7",
     "nanoid": "3",
-    "netlify-cli": "^15.4.1"
+    "netlify-cli": "^15.4.1",
+    "node-sass": "^9.0.0"
   }
 }

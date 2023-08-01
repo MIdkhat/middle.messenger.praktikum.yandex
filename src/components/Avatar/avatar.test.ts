@@ -4,6 +4,12 @@ import handlebars from 'handlebars';
 import { JSDOM } from 'jsdom';
 import { template } from './avatar.templ';
 
+const data = {
+  src: './public/images/cactus.png',
+  class: ['img-thumbnail', 'rounded'],
+  title: 'Image Title',
+};
+
 describe('Handlebars Image Template Test', () => {
   let render: Handlebars.TemplateDelegate<any> | null = null;
 
@@ -12,18 +18,14 @@ describe('Handlebars Image Template Test', () => {
   });
 
   it('should render the template with correct values', () => {
-    const data = {
-      src: 'path/to/image.jpg',
-      class: ['img-thumbnail', 'rounded'],
-      title: 'Image Title',
-    };
-
     if (render) {
       const renderedHTML = render(data);
       const { document } = new JSDOM(renderedHTML).window;
       const imgElement = document.querySelector('img');
       expect(imgElement).to.exist;
-      expect(imgElement?.getAttribute('src')).to.equal('path/to/image.jpg');
+      expect(imgElement?.getAttribute('src')).to.equal(
+        './public/images/cactus.png'
+      );
       expect(imgElement?.classList.contains('img-thumbnail')).to.be.true;
       expect(imgElement?.classList.contains('rounded')).to.be.true;
       expect(imgElement?.getAttribute('alt')).to.equal('Image Title');

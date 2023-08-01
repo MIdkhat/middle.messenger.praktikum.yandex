@@ -4,6 +4,20 @@ import handlebars from 'handlebars';
 import { JSDOM } from 'jsdom';
 import { template } from './chatTop.templ.js';
 
+const styles = {
+  'messages-header-container': 'messages-header-container-style',
+  hidden: 'hidden-style',
+};
+
+const data = {
+  styles,
+  selected: true,
+  avatarContainer: '<div class="avatar-container">Avatar Container</div>',
+  addUserButton: '<button class="add-user-button">Add User</button>',
+  removeUserButton: '<button class="remove-user-button">Remove User</button>',
+  editChatButton: '<button class="edit-chat-button">Edit Chat</button>',
+  deleteChatButton: '<button class="delete-chat-button">Delete Chat</button>',
+};
 describe('Top Chat Template Test', () => {
   let render: Handlebars.TemplateDelegate<any> | null = null;
 
@@ -12,21 +26,6 @@ describe('Top Chat Template Test', () => {
   });
 
   it('should render the template with correct values', () => {
-    const styles = {
-      'messages-header-container': 'messages-header-container-style',
-      hidden: 'hidden-style',
-    };
-
-    const data = {
-      styles,
-      selected: true,
-      avatarContainer: '<div>Avatar Container</div>',
-      addUserButton: '<button>Add User</button>',
-      removeUserButton: '<button>Remove User</button>',
-      editChatButton: '<button>Edit Chat</button>',
-      deleteChatButton: '<button>Delete Chat</button>',
-    };
-
     if (render) {
       const renderedHTML = render(data);
       const { document } = new JSDOM(renderedHTML).window;
@@ -35,13 +34,30 @@ describe('Top Chat Template Test', () => {
       );
       expect(messagesHeaderContainer).to.exist;
 
-      // Test other elements and attributes as needed
-      // You can use querySelector and other DOM methods to check the expected content
-      // and classes of the elements.
+      // Test the content of each element
+      const avatarContainer =
+        messagesHeaderContainer?.querySelector('.avatar-container');
+      expect(avatarContainer?.outerHTML).to.equal(data.avatarContainer);
+
+      const addUserButton =
+        messagesHeaderContainer?.querySelector('.add-user-button');
+      expect(addUserButton?.outerHTML).to.equal(data.addUserButton);
+
+      const removeUserButton = messagesHeaderContainer?.querySelector(
+        '.remove-user-button'
+      );
+      expect(removeUserButton?.outerHTML).to.equal(data.removeUserButton);
+
+      const editChatButton =
+        messagesHeaderContainer?.querySelector('.edit-chat-button');
+      expect(editChatButton?.outerHTML).to.equal(data.editChatButton);
+
+      const deleteChatButton = messagesHeaderContainer?.querySelector(
+        '.delete-chat-button'
+      );
+      expect(deleteChatButton?.outerHTML).to.equal(data.deleteChatButton);
     } else {
       throw new Error('Handlebars template render is not initialized.');
     }
   });
-
-  // Add more test cases here if needed
 });

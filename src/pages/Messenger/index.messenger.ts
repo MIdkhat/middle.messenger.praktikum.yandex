@@ -11,7 +11,7 @@ import {
   setStyles,
   redirect,
 } from '../../utils/Helpers.js';
-
+import { ChatInfo } from '../../api/ChatsAPI';
 import { Button, ButtonAwesome } from '../../components/Buttons/buttons.js';
 import { Tag } from '../../components/Tags/tags.js';
 import { Input } from '../../components/Input/input.js';
@@ -83,7 +83,8 @@ export class MessengerPage extends Block {
       classes: ['tools-container'],
     });
 
-    this.children.chats = new ChatsList({ chats: [], isLoaded: false });
+    const chats: ChatInfo[] = [];
+    this.children.chats = new ChatsList({ chats, isLoaded: false });
 
     // RIGHT PANEL
     const addUserButton = new ButtonAwesome({
@@ -147,7 +148,7 @@ export class MessengerPage extends Block {
   }
 
   async createNewChatSubmit(e: Event) {
-    console.log(store);
+    // console.log(store);
     e.preventDefault();
     const form = e.currentTarget as HTMLFormElement;
     if (!form) return;

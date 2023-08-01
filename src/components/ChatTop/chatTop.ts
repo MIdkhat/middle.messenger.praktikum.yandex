@@ -13,8 +13,8 @@ const styles = stylesDefs.default;
 
 interface ChatTopProps extends ChatInfo {
   selected: boolean;
-  chat: ChatInfo;
-  users: User[];
+  chat?: ChatInfo;
+  users?: User[];
   buttons: Record<string, Block>;
 }
 export class ChatTopBase extends Block<ChatTopProps> {
