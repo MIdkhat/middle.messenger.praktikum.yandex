@@ -16,7 +16,7 @@ interface FormProps {
   onSubmit?: () => void;
   valid?: boolean;
   events?: {
-    submit: (e: FormData) => void;
+    submit: (e: Event) => Promise<void>;
   };
 }
 

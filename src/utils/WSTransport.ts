@@ -1,4 +1,4 @@
-import { EventBus } from './EventBus.ts';
+import { EventBus } from './EventBus';
 
 /**
  * WebSocker EventBus

@@ -65,6 +65,8 @@ module.exports = {
     'class-methods-use-this': 'off',
     'no-empty-function': 'off',
     'no-this-alias': 'off',
+    'no-unused-expressions': 'off',
+    'no-extraneous-dependencies': 'off',
     'no-shadow': [
       'off',
       {

@@ -10,16 +10,17 @@ export enum StoreEvents {
 }
 
 interface State {
-  user: User;
-  chats: ChatInfo[];
-  messages: Record<number, Message[]>;
-  chatsUsers: Record<number, User[]>;
+  user?: User;
+  chats?: ChatInfo[];
+  messages?: Record<number, Message[]>;
+  chatsUsers?: Record<number, User[]>;
   selectedChat?: number;
 }
+
 const setNested = (
   object: Record<string, any>,
   path: string,
-  value: unknown
+  value: any
 ): void => {
   let schema = object; // a moving reference to internal objects within obj
   const pList = path.split('.');
@@ -33,7 +34,8 @@ const setNested = (
 };
 
 export class Store extends EventBus {
-  private state: unknown = {};
+  // private state: Record<string, any> = {};
+  private state: State = {};
 
   public set(keypath: string, data: unknown) {
     set(this.state, keypath, data);
@@ -51,14 +53,14 @@ export class Store extends EventBus {
   }
   public getChatById(id: number) {
     return (
-      this.getState().chats.filter((chat: ChatInfo) => chat.id === id)[0] ?? {}
+      this.getState().chats?.filter((chat: ChatInfo) => chat.id === id)[0] ?? {}
     );
   }
 
   public getSelectedChat() {
-    const id = this.getState().selectChat;
+    const id = this.getState().selectedChat;
     return (
-      this.getState().chats.filter((chat: ChatInfo) => chat.id === id)[0] ?? {}
+      this.getState().chats?.filter((chat: ChatInfo) => chat.id === id)[0] ?? {}
     );
   }
 

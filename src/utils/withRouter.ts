@@ -1,8 +1,8 @@
-import Block from './Block.ts';
-import Router from './Router.ts';
+import Block from './Block';
+import Router from './Router';
 
 export interface PropsWithRouter {
-  router: typeof Router;
+  router?: typeof Router;
 }
 
 export function withRouter(Component: typeof Block<any>) {

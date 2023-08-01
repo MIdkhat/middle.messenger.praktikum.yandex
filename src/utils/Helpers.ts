@@ -14,6 +14,8 @@ export const redirect = ({ url, action = undefined }: btnAwesomeProps) => {
 
 export const parseDate = (dateString: string) => {
   const date = new Date(dateString);
+  if (date.toString() === 'Invalid Date') return date.toString();
+
   const year = date.getFullYear();
   const month = String(date.getMonth() + 1).padStart(2, '0');
   const day = String(date.getDate()).padStart(2, '0');
@@ -51,26 +53,6 @@ export type Indexed<T = any> = {
   [key in string]: T;
 };
 
-// export const merge = (lhs: Indexed, rhs: Indexed): Indexed => {
-//   for (const p of Object.keys(rhs)) {
-//     if (!rhs.hasOwnProperty(p)) {
-//       continue;
-//     }
-
-//     try {
-//       if (rhs[p].constructor === Object) {
-//         rhs[p] = merge(lhs[p] as Indexed, rhs[p] as Indexed);
-//       } else {
-//         lhs[p] = rhs[p];
-//       }
-//     } catch (e) {
-//       lhs[p] = rhs[p];
-//     }
-//   }
-
-//   return lhs;
-// };
-
 export function set(
   object: Indexed | unknown,
   path: string,
@@ -79,6 +61,8 @@ export function set(
   if (typeof object !== 'object' || object === null) {
     return object;
   }
+
+  if (!path) return value;
 
   if (typeof path !== 'string') {
     throw new Error('path must be string');
@@ -111,22 +95,20 @@ export function merge(lhs: Indexed, rhs: Indexed): Indexed {
 }
 
 export function isEqual(aa: object, bb: object): boolean {
+  if (typeof aa !== typeof bb) return false;
+
+  if (typeof aa === 'function' && typeof bb === 'function') {
+    if (aa.toString() === bb.toString()) return true;
+    return false;
+  }
+
   const a = JSON.parse(JSON.stringify(aa));
   const b = JSON.parse(JSON.stringify(bb));
   if (a instanceof SyntaxError || b instanceof SyntaxError) {
-    alert("Couldn't update page");
     return false;
   }
 
   if (a === b) return true;
-
-  if (
-    typeof a === 'function' &&
-    typeof b === 'function' &&
-    a.toString() === b.toString()
-  ) {
-    return true;
-  }
 
   if (
     typeof a !== 'object' ||
@@ -160,34 +142,11 @@ export function arrayLeftRightIntersect(
   arr1: number[],
   arr2: number[]
 ): [number[], number[], number[]] {
-  const leftOnly: number[] = [];
-  const rightOnly: number[] = [];
   const intersection: number[] = [];
-
-  // Find elements only in the left array
-  // for (const element of arr1) {
-  //   if (!arr2.includes(element)) {
-  //     leftOnly.push(element);
-  //   }
-  // }
-
-  arr1.filter((element) => !arr2.includes(element));
-
-  // Find elements only in the right array
-  // for (const element of arr2) {
-  //   if (!arr1.includes(element)) {
-  //     rightOnly.push(element);
-  //   } else {
-  //     // Find intersection elements
-  //     if (!intersection.includes(element)) {
-  //       intersection.push(element);
-  //     }
-  //   }
-  // }
+  const leftOnly = arr1.filter((element) => !arr2.includes(element));
+  const rightOnly = arr2.filter((element) => !arr1.includes(element));
   arr2.forEach((element) => {
-    if (!arr1.includes(element)) {
-      rightOnly.push(element);
-    } else if (!intersection.includes(element)) {
+    if (arr1.includes(element)) {
       intersection.push(element);
     }
   });
@@ -224,10 +183,11 @@ export const cloneDeep = (value: unknown): any => {
     return value;
   }
 
-  const clonedObj: any = {};
+  const clonedObj: { [key: string]: any } = {}; // Specify the index signature
   Object.keys(value).forEach((key) => {
     if (Object.prototype.hasOwnProperty.call(value, key)) {
-      clonedObj[key] = cloneDeep(value[key]);
+      const innerValue: { [key: string]: any } = value;
+      clonedObj[key] = cloneDeep(innerValue[key]);
     }
   });
   return clonedObj;
@@ -256,9 +216,11 @@ export const clearFormInputs = (form: HTMLFormElement) => {
     const element = elements[i];
 
     if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
-      element.value = '';
+      const inputElement = element as HTMLInputElement;
+      inputElement.value = '';
     } else if (element.tagName === 'SELECT') {
-      element.selectedIndex = 0;
+      const selectElement = element as HTMLSelectElement;
+      selectElement.selectedIndex = 0;
     }
   }
 };
@@ -270,19 +232,8 @@ export const queryStringify = (data: Record<string, any>): string | never => {
 
   const queryStrings: string[] = [];
 
-  // function processValue(key: string, value: unknown) {
-  //   if (Array.isArray(value)) {
-  //     value.forEach((item, index) => processValue(`${key}[${index}]`, item));
-  //   } else if (typeof value === 'object') {
-  //     for (const innerKey in value) {
-  //       if (value.hasOwnProperty(innerKey)) {
-  //         processValue(`${key}[${innerKey}]`, value[innerKey]);
-  //       }
-  //     }
-  //   } else {
-  //     queryStrings.push(`${key}=${value}`);
-  //   }
-  // }
+  const encode = (str: any) => str.toString().trim().replace(' ', '%20');
+
   function processValue(key: string, value: unknown) {
     const stack: { key: string; value: unknown }[] = [{ key, value }];
 
@@ -291,14 +242,21 @@ export const queryStringify = (data: Record<string, any>): string | never => {
 
       if (Array.isArray(currentValue)) {
         currentValue.forEach((item, index) => {
-          stack.push({ key: `${currentKey}[${index}]`, value: item });
+          stack.push({
+            key: `${currentKey}[${index}]`,
+            value: encode(item),
+          });
         });
       } else if (typeof currentValue === 'object' && currentValue !== null) {
         Object.entries(currentValue).forEach(([innerKey, innerValue]) => {
-          stack.push({ key: `${currentKey}[${innerKey}]`, value: innerValue });
+          stack.push({
+            key: `${currentKey}[${innerKey}]`,
+            value: encode(innerValue),
+          });
         });
       } else {
-        queryStrings.push(`${currentKey}=${currentValue}`);
+        const stringvalue: string = currentValue as string;
+        queryStrings.push(`${currentKey}=${encode(stringvalue)}`);
       }
     }
   }

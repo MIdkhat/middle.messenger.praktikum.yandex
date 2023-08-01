@@ -83,7 +83,7 @@ export class RegisterPage extends Block {
     e.preventDefault();
     const form = e.currentTarget as HTMLFormElement;
     if (!form) return;
-    if (!validateForm(this.children.loginform as Block)) return;
+    if (!validateForm(this.children.form as Block)) return;
     const formData = new FormData(form);
     const data = formDataToJson(formData) as SignupData;
 
