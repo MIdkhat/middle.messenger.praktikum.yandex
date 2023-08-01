@@ -2,20 +2,30 @@
 const hook = require('css-modules-require-hook');
 const sass = require('node-sass');
 
+hook({
+  extensions: ['.scss'],
+  generateScopedName: '[name]__[local]___[hash:base64:5]',
+  preprocessCss: (data, filename) =>
+    sass.renderSync({
+      data,
+      file: filename,
+    }).css,
+});
+
 module.exports = {
-  extension: ['ts', 'scss'],
-  require: 'ts-node/register',
+  extension: ['ts'],
+  require: ['ts-node/register', '.mocharc.cjs'],
   loader: 'ts-node/esm',
   spec: 'src/**/*.spec.ts',
-  'es-module-specifier-resolution': 'node',
+  'watch-files': ['src'],
+  'node-option': [
+    'experimental-specifier-resolution=node',
+    'loader=ts-node/esm',
+    'es-module-specifier-resolution=node',
+  ],
   recursive: true,
   timeout: 5000,
   reporter: 'spec',
   bail: true,
   colors: true,
 };
-
-hook({
-  extensions: ['.scss'],
-  preprocessCss: (data) => sass.renderSync({ data }).css,
-});

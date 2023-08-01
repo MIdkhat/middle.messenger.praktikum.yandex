@@ -1,44 +1,25 @@
 /* eslint-disable import/no-extraneous-dependencies */
 // import '../../../.mocharc.js';
 import { expect } from 'chai';
-import Handlebars from 'handlebars';
-import { JSDOM } from 'jsdom';
+// import Handlebars from 'handlebars';
+// import { JSDOM } from 'jsdom';
 import { Button, ButtonProps } from './buttons';
-import { template } from './buttons.templ';
-
-const styles = {
-  'button-submit': 'btn-primary',
-  disabled: 'disabled',
-};
-
-// const data = {
-//   styles,
-//   class: ['btn-large', 'btn-red'],
-//   disabled: true,
-//   type: 'submit',
-//   label: 'Click Me',
-// };
 
 const buttonProps: ButtonProps = {
   type: 'button',
   label: 'Click',
   classes: ['button-class-1', 'button-class-2'],
   disabled: false,
-  // events: {
-  //   click: () => console.log('Click'),
-  // },
+  events: {
+    click: () => console.log('Click'),
+  },
 };
 
 describe('Handlebars Button Template Test', () => {
-  // let render: Handlebars.TemplateDelegate<any> | null = null;
-
-  // beforeEach(() => {
-  //   render = Handlebars.compile(template);
-  // });
-
   const button = new Button(buttonProps);
   console.log(button.getContent());
   // it('should render the template with correct values', () => {
+
   //   const renderedHTML = render(data);
   //   const { document } = new JSDOM(renderedHTML).window;
   //   const buttonElement = document.querySelector('button');
