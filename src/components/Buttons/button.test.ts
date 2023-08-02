@@ -1,39 +1,39 @@
 /* eslint-disable import/no-extraneous-dependencies */
-// import '../../../.mocharc.js';
 import { expect } from 'chai';
-// import Handlebars from 'handlebars';
-// import { JSDOM } from 'jsdom';
 import { Button, ButtonProps } from './buttons';
 
 const buttonProps: ButtonProps = {
   type: 'button',
-  label: 'Click',
-  classes: ['button-class-1', 'button-class-2'],
-  disabled: false,
+  label: 'Click Me',
+  disabled: true,
   events: {
-    click: () => console.log('Click'),
+    click: () => console.log('Click Me'),
   },
 };
 
 describe('Handlebars Button Template Test', () => {
   const button = new Button(buttonProps);
-  console.log(button.getContent());
-  // it('should render the template with correct values', () => {
+  const buttonElement = button.getContent();
+  console.log(buttonElement?.outerHTML);
 
-  //   const renderedHTML = render(data);
-  //   const { document } = new JSDOM(renderedHTML).window;
-  //   const buttonElement = document.querySelector('button');
-  //   expect(buttonElement).to.exist;
-  //   expect(buttonElement?.classList.contains(styles['button-submit'])).to.be
-  //     .true;
-  //   expect(buttonElement?.classList.contains(styles.disabled)).to.be.true;
-  //   // expect(buttonElement?.classList.contains('btn-large')).to.be.true;
-  //   expect(buttonElement?.classList.contains('btn-red')).to.be.true;
-  //   expect(buttonElement?.getAttribute('type')).to.equal('submit');
-  //   expect(buttonElement?.getAttribute('disabled')).to.equal('');
+  it('should render the template with correct values', () => {
+    expect(buttonElement).to.exist;
+    if (buttonElement) {
+      expect(buttonElement?.getAttribute('type')).to.equal('button');
+      expect(buttonElement?.getAttribute('disabled')).to.equal('');
 
-  //   expect(buttonElement?.textContent.trim()).to.equal('Click Me');
-  // });
+      expect(buttonElement?.textContent?.trim()).to.equal('Click Me');
 
-  expect(1).to.equal(1);
+      // Mock the console.log method to capture the output
+      let consoleOutput = '';
+      const originalConsoleLog = console.log;
+      console.log = (output: string) => {
+        consoleOutput += output;
+      };
+      const clickEvent = new window.MouseEvent('click');
+      buttonElement.dispatchEvent(clickEvent);
+      console.log = originalConsoleLog;
+      expect(consoleOutput).to.equal('Click Me');
+    }
+  });
 });

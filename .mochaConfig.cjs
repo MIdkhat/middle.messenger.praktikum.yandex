@@ -24,7 +24,7 @@ require.extensions['.scss'] = function () {
 
 module.exports = {
   extension: ['ts'],
-  require: ['ts-node/register', '.mocharc.cjs'],
+  require: ['ts-node/register', '.mochaConfig.cjs'],
   loader: 'ts-node/esm',
   spec: 'src/**/*.test.ts',
   'watch-files': ['src'],

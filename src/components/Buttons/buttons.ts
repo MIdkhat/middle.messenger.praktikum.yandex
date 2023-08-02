@@ -1,8 +1,6 @@
 import Block from '../../utils/Block';
 import { template, templateAwesome } from './buttons.templ';
-import * as stylesDefs from './styles.module.scss';
-
-const styles = stylesDefs.default;
+import styles from './styles.module.scss';
 
 export interface ButtonProps {
   type?: string;
