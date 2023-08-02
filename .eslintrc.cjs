@@ -68,6 +68,7 @@ module.exports = {
     'no-unused-expressions': 'off',
     'no-extraneous-dependencies': 'off',
     'no-console': 'off',
+    'import/no-extraneous-dependencies': 'off',
     'no-shadow': [
       'off',
       {
