@@ -3,26 +3,53 @@
     "files": true
   },
   "compilerOptions": {
-    "target": "ES6",
-    "useDefineForClassFields": true,
-    "module": "ES6",
+    "target": "es2016",
+    "module": "commonjs",
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "skipLibCheck": true,
-    "outDir": "dist",
-    "esModuleInterop": true,
-    "moduleResolution": "node",
 
     /* Bundler mode */
+
+    // "allowImportingTsExtensions": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
 
     /* Linting */
-    "strict": false,
+    "strict": true,
+    "noUnusedLocals": true,
+    "esModuleInterop": true,
     "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true,
-    "noImplicitAny": false,
-    "noUnusedLocals": false
+    "noFallthroughCasesInSwitch": true
   },
-  "include": ["src", "src/**/*.ts"]
+  "include": ["src"]
 }
+
+// {
+//   "ts-node": {
+//     "files": true
+//   },
+//   "compilerOptions": {
+//     "target": "ES6",
+//     "useDefineForClassFields": true,
+//     "module": "ES6",
+//     "lib": ["ES2020", "DOM", "DOM.Iterable"],
+//     "skipLibCheck": true,
+//     "outDir": "dist",
+//     "esModuleInterop": true,
+//     "moduleResolution": "node",
+
+//     /* Bundler mode */
+//     "resolveJsonModule": true,
+//     "isolatedModules": true,
+//     "noEmit": true,
+
+//     /* Linting */
+//     "strict": false,
+//     "noUnusedParameters": true,
+//     "noFallthroughCasesInSwitch": true,
+//     "noImplicitAny": false,
+//     "noUnusedLocals": false
+//   },
+//   "include": ["src", "src/**/*.ts"]
+// }

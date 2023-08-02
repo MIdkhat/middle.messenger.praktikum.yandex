@@ -1,26 +1,36 @@
-/* eslint-disable import/no-extraneous-dependencies */
-const hook = require('css-modules-require-hook');
-const sass = require('node-sass');
+// /* eslint-disable import/no-extraneous-dependencies */
+// const hook = require('css-modules-require-hook');
+// const sass = require('node-sass');
 
-hook({
-  extensions: ['.scss'],
-  generateScopedName: '[name]__[local]___[hash:base64:5]',
-  preprocessCss: (data, filename) =>
-    sass.renderSync({
-      data,
-      file: filename,
-    }).css,
+const { JSDOM } = require('jsdom');
+
+const { window } = new JSDOM('<div id="app"></div>', {
+  url: 'http://localhost:5173',
 });
+
+global.window = window;
+global.document = window.document;
+global.DocumentFragment = window.DocumentFragment;
+
+// require.extensions['.hbs'] = function (module, filename) {
+//   const contents = fs.readFileSync(filename, 'utf-8');
+
+//   module.exports = Handlebars.compile(contents);
+// };
+
+require.extensions['.scss'] = function () {
+  module.exports = () => ({});
+};
 
 module.exports = {
   extension: ['ts'],
   require: ['ts-node/register', '.mocharc.cjs'],
   loader: 'ts-node/esm',
-  spec: 'src/**/*.spec.ts',
+  spec: 'src/**/*.test.ts',
   'watch-files': ['src'],
   'node-option': [
-    'experimental-specifier-resolution=node',
     'loader=ts-node/esm',
+    'experimental-specifier-resolution=node',
     'es-module-specifier-resolution=node',
   ],
   recursive: true,
@@ -29,3 +39,13 @@ module.exports = {
   bail: true,
   colors: true,
 };
+
+// hook({
+//   extensions: ['.scss'],
+//   generateScopedName: '[name]__[local]___[hash:base64:5]',
+//   preprocessCss: (data, filename) =>
+//     sass.renderSync({
+//       data,
+//       file: filename,
+//     }).css,
+// });

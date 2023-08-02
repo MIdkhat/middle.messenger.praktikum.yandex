@@ -14,7 +14,7 @@
     "start": "vite build; vite preview --port 3000",
     "lint:eslint": "eslint src",
     "lint:stylelint": "stylelint \"src/**/*.scss\"",
-    "test": "mocha",
+    "test": "mocha --require ts-node/register --require .mocharc.cjs \"src/components/Buttons/button.test.ts\"",
     "precommit": "npm run test && npm run build"
   },
   "husky": {
