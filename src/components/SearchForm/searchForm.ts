@@ -2,9 +2,7 @@ import Block from '../../utils/Block';
 import { template } from './SearchForm.templ';
 import { ButtonAwesome } from '../Buttons/buttons';
 import { Input } from '../Input/input';
-import * as stylesDefs from './styles.module.scss';
-
-const styles = stylesDefs.default;
+import styles from './styles.module.scss';
 
 export class SearchForm extends Block {
   constructor() {

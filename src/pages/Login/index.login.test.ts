@@ -2,7 +2,7 @@
 import { expect } from 'chai';
 import handlebars from 'handlebars';
 import { JSDOM } from 'jsdom';
-import { template } from './chatTop.templ.js';
+import { template } from './chatTop.templ';
 
 describe('Login Page Test', () => {
   let render: Handlebars.TemplateDelegate<any> | null = null;

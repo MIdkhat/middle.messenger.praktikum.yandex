@@ -2,7 +2,7 @@
 import { expect } from 'chai';
 import handlebars from 'handlebars';
 import { JSDOM } from 'jsdom';
-import { template } from './chatTop.templ.js';
+import { template } from './chatTop.templ';
 
 const styles = {
   'messages-header-container': 'messages-header-container-style',

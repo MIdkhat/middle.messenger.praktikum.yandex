@@ -3,10 +3,10 @@ import { expect } from 'chai';
 import handlebars from 'handlebars';
 import { JSDOM } from 'jsdom';
 import { registerHandlebarsHelpers } from '../../utils/HandlebarsHelpers';
-import { template } from './chat.templ.js';
-// import * as stylesDefs from './styles.module.scss';
+import { template } from './chat.templ';
+// import styles from './styles.module.scss';
 
-// const styles = stylesDefs.default;
+//
 
 const styles = {
   'chat-container': 'chat-container-style',

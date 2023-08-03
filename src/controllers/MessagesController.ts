@@ -1,5 +1,6 @@
 import WSTransport, { WSTransportEvents } from '../utils/WSTransport';
 import store from '../utils/Store';
+import { User } from '../api/AuthAPI';
 
 export interface Message {
   chat_id: number;
@@ -24,7 +25,9 @@ class MessagesController {
   async connect(id: number, token: string) {
     if (this.sockets.has(id)) return;
 
-    const userId = store.getUser().id;
+    const user = store.getUser() as User;
+    if (!user || Object.keys(user).length === 0) return;
+    const userId = user.id;
     const wsTransport = new WSTransport(
       `wss://ya-praktikum.tech/ws/chats/${userId}/${id}/${token}`
     );

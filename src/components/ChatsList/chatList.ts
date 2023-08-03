@@ -1,12 +1,10 @@
 import Block from '../../utils/Block';
-import { template } from './chatList.templ.js';
+import { template } from './chatList.templ';
 import { Chat } from '../Chat/chat';
 import store, { withStore } from '../../utils/Store';
 import { ChatInfo } from '../../api/ChatsAPI';
 import ChatsController from '../../controllers/ChatsController';
-import * as stylesDefs from './styles.module.scss';
-
-const styles = stylesDefs.default;
+import styles from './styles.module.scss';
 
 interface ChatsListProps {
   chats: ChatInfo[];

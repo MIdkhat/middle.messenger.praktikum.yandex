@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { set } from './Helpers';
 import { EventBus } from './EventBus';
 import Block from './Block';

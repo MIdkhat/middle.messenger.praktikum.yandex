@@ -1,12 +1,11 @@
 import Block from '../../utils/Block';
 import { template } from './form.templ';
 import { Tag } from '../Tags/tags';
+import { Input } from '../Input/input';
 import { setStyles, warningStyles } from '../../utils/Helpers';
-import * as stylesDefs from './styles.module.scss';
+import styles from './styles.module.scss';
 
-const styles = stylesDefs.default;
-
-interface FormProps {
+export interface FormProps {
   title?: string;
   inputs: Block[];
   buttons: Block[];
@@ -32,9 +31,9 @@ export class Form extends Block<FormProps> {
     });
 
     // add toggleWarning to inputs
-    const inputContainers = this.children.inputs as Block[];
+    const inputContainers = this.children.inputs as Input[];
     const inputs = inputContainers.map((container) => {
-      const content = container.children.content as Block[];
+      const content = container.children.content as Input[];
       return content[1];
     });
 

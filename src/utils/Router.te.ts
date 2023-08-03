@@ -2,7 +2,7 @@
 // import sinon, { SinonFakeXMLHttpRequestStatic } from 'sinon';
 // import { Router } from './Router';
 // import Block from './Block';
-// import { template } from './dummy.templ.js';
+// import { template } from './dummy.templ';
 
 // describe('Router test', () => {
 //   let xhr: SinonFakeXMLHttpRequestStatic;

@@ -1,16 +1,11 @@
 import Block from '../../utils/Block';
-import { template } from './messages.templ.js';
+import { template } from './messages.templ';
 import store, { withStore } from '../../utils/Store';
-import { isEqual, parseDate } from '../../utils/Helpers.js';
-import {
-  ContainerScroller,
-  ContainerMessage,
-} from '../Containers/containers.js';
-import { Message } from '../../controllers/MessagesController.js';
-import { User } from '../../api/AuthAPI.js';
-import * as stylesDefs from './styles.module.scss';
-
-const styles = stylesDefs.default;
+import { isEqual, parseDate } from '../../utils/Helpers';
+import { ContainerScroller, ContainerMessage } from '../Containers/containers';
+import { Message } from '../../controllers/MessagesController';
+import { User } from '../../api/AuthAPI';
+import styles from './styles.module.scss';
 
 interface MessagesProps {
   messages: Message[];

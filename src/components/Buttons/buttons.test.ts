@@ -1,5 +1,6 @@
 import { expect } from 'chai';
 import { Button, ButtonProps } from './buttons';
+import { mockConsoleLog } from '../../utils/TestHelpers';
 
 const buttonProps: ButtonProps = {
   type: 'button',
@@ -22,14 +23,7 @@ describe('Handlebars Button Template Test', () => {
       expect(buttonElement.textContent?.trim()).to.equal('Click Me');
 
       // Mock the console.log method to capture the output
-      let consoleOutput = '';
-      const originalConsoleLog = console.log;
-      console.log = (output: string) => {
-        consoleOutput += output;
-      };
-      const clickEvent = new window.MouseEvent('click');
-      buttonElement.dispatchEvent(clickEvent);
-      console.log = originalConsoleLog;
+      const consoleOutput = mockConsoleLog(buttonElement, 'click');
       expect(consoleOutput).to.equal('Click Me');
     }
   });

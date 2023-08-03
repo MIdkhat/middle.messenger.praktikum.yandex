@@ -1,12 +1,10 @@
 import Block from '../../utils/Block';
-import { template } from './chat.templ.js';
+import { template } from './chat.templ';
 import { ChatInfo } from '../../api/ChatsAPI';
 import { Avatar } from '../Avatar/avatar';
-import { User } from '../../api/AuthAPI.js';
-import { Tag } from '../Tags/tags.js';
-import * as stylesDefs from './styles.module.scss';
-
-const styles = stylesDefs.default;
+import { User } from '../../api/AuthAPI';
+import { Tag } from '../Tags/tags';
+import styles from './styles.module.scss';
 
 export interface ChatProps {
   selected: boolean;

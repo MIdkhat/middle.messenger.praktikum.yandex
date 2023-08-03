@@ -7,15 +7,13 @@ import {
   templateSendMessage,
   templateScroller,
 } from './container.templ';
-import { ButtonAwesome } from '../../components/Buttons/buttons.js';
-import { TextArea } from '../TextArea/textarea.js';
-import { ChatInfo } from '../../api/ChatsAPI.js';
-import MessageController from '../../controllers/MessagesController.js';
-import * as stylesDefs from './styles.module.scss';
-import store from '../../utils/Store.js';
-import { Avatar } from '../Avatar/avatar.js';
-
-const styles = stylesDefs.default;
+import { ButtonAwesome } from '../../components/Buttons/buttons';
+import { TextArea } from '../TextArea/textarea';
+import { ChatInfo } from '../../api/ChatsAPI';
+import MessageController from '../../controllers/MessagesController';
+import styles from './styles.module.scss';
+import store from '../../utils/Store';
+import { Avatar } from '../Avatar/avatar';
 
 type events = {
   [key: string]: () => void;
@@ -54,7 +52,7 @@ export interface ContainerChatProps extends ChatInfo {
 // container for the header above messages in the rigth panel
 // container for messages in the right panel
 interface ContainerMessageProps extends ContainerProps {
-  messageTemplate?: (context: any) => string;
+  messageTemplate?: string;
   author: string;
   avatar: string | null;
   hideAvatar: boolean;
