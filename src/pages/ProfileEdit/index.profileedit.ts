@@ -343,6 +343,7 @@ export class ProfileEditPageBase extends Block<EditProfileProps> {
 
   async editAvatarSubmit(e: Event) {
     e.preventDefault();
+    // const oldAvatar = store.getUser().avatar;
     const form = e.currentTarget as HTMLFormElement;
     if (!form) return;
     const formData = new FormData(form);
