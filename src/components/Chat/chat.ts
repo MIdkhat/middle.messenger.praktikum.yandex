@@ -20,7 +20,6 @@ export class Chat extends Block<ChatProps> {
     super({ ...props });
   }
   init() {
-    // console.log('CHAT:', this.props.chat.id, this.props.selected)
     this.children.avatar = this.createAvatar(this.props);
     this.children.title = this.createTitle(this.props);
   }

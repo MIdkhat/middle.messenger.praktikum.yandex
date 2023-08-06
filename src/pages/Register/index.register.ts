@@ -85,7 +85,7 @@ export class RegisterPage extends Block {
     if (!form) return;
     if (!validateForm(this.children.form as Block)) return;
     const formData = new FormData(form);
-    const data = formDataToJson(formData) as SignupData;
+    const data = formDataToJson(formData) as unknown as SignupData;
 
     const res = await AuthController.signup(data);
     if (!res.success) {

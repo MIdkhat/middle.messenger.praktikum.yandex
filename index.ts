@@ -57,19 +57,5 @@ window.addEventListener('DOMContentLoaded', async () => {
     if (!isProtectedRoute) Router.go(Routes.Profile);
     return;
   }
-  // console.log('index.ts catch error', res.error);
   if (isProtectedRoute) Router.go(Routes.Index);
-
-  // try {
-  //   await AuthController.fetchUser()
-  //   if (!isProtectedRoute) {
-  //     Router.go(Routes.Profile)
-  //   }
-  // } catch (e) {
-  //   console.log('index.ts catch error', e)
-
-  //   if (isProtectedRoute) {
-  //     Router.go(Routes.Index)
-  //   }
-  // }
 });

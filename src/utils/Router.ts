@@ -74,7 +74,6 @@ export class Router {
 
   public go(pathname: string) {
     this.history.pushState({}, '', pathname);
-
     this._onRoute(pathname);
   }
 

@@ -13,7 +13,7 @@
     "start": "vite build; vite preview --port 3000",
     "lint:eslint": "eslint src",
     "lint:stylelint": "stylelint \"src/**/*.scss\"",
-    "test": "mocha --require ts-node/register --require .mochaConfig.cjs \"src/components/**/*.test.ts\"",
+    "test": "mocha --require ts-node/register --require .mochaConfig.cjs \"src/**/*.test.ts\"",
     "precommit": "npm run test && npm run build"
   },
   "husky": {
@@ -25,6 +25,7 @@
     "@types/chai": "^4.3.5",
     "@types/jsdom": "^21.1.1",
     "@types/mocha": "^10.0.1",
+    "@types/puppeteer": "^7.0.4",
     "@types/sinon": "^10.0.15",
     "autoprefixer": "^10.4.14",
     "chai": "^4.3.7",
@@ -39,6 +40,7 @@
     "nodemon": "^2.0.22",
     "postcss": "^8.4.24",
     "postcss-normalize": "^10.0.1",
+    "puppeteer": "^21.0.1",
     "sass": "^1.63.3",
     "sinon": "^15.2.0",
     "stylelint": "^15.9.0",

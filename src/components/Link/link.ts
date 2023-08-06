@@ -6,7 +6,7 @@ import { Routes } from '../../../index';
 import Router from '../../utils/Router';
 import styles from './styles.module.scss';
 
-interface LinkProps extends PropsWithRouter {
+export interface LinkProps extends PropsWithRouter {
   to: Routes;
   label: string;
   router?: typeof Router;

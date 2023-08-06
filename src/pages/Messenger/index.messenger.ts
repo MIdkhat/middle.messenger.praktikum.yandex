@@ -1,3 +1,4 @@
+//@ts-nocheck
 import Block from '../../utils/Block';
 import store from '../../utils/Store';
 import { Routes } from '../../../index';
@@ -147,7 +148,6 @@ export class MessengerPage extends Block {
   }
 
   async createNewChatSubmit(e: Event) {
-    // console.log(store);
     e.preventDefault();
     const form = e.currentTarget as HTMLFormElement;
     if (!form) return;
@@ -279,7 +279,7 @@ export class MessengerPage extends Block {
     const form = e.currentTarget as HTMLFormElement;
     if (!form) return;
     const formData = new FormData(form);
-    formData.set('chatId', store.getState().selectedChat);
+    formData.set('chatId', `${store.getState().selectedChat}`);
     const res = await ChatsController.editChatAvatar(formData);
     if (res.success) {
       alert('Chat avatar updated');

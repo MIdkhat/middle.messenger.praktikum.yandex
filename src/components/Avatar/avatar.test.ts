@@ -8,9 +8,12 @@ const avatarProps = {
   title: 'Image Title',
 };
 
-describe('Handlebars Avatar Template Test', () => {
-  const avatar = new Avatar(avatarProps);
-  const avatarElement = avatar.getContent();
+describe('Avatar Template Test', () => {
+  let avatarElement;
+  beforeEach(() => {
+    const avatar = new Avatar(avatarProps);
+    avatarElement = avatar.getContent();
+  });
 
   it('should render the template with correct values', () => {
     expect(avatarElement).to.exist;

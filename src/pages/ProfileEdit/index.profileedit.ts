@@ -325,7 +325,7 @@ export class ProfileEditPageBase extends Block<EditProfileProps> {
     if (!form) return;
     if (!validateForm(this.children.editform as Block)) return;
     const formData = new FormData(form);
-    const data = formDataToJson(formData) as UserUpdate;
+    const data = formDataToJson(formData) as unknown as UserUpdate;
     const res = await UserController.editProfile(data);
     if (res.success) {
       alert('User details updated');

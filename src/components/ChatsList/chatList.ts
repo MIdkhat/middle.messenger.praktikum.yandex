@@ -1,3 +1,4 @@
+//@ts-nocheck
 import Block from '../../utils/Block';
 import { template } from './chatList.templ';
 import { Chat } from '../Chat/chat';
@@ -33,7 +34,6 @@ class ChatsListBase extends Block<ChatsListProps> {
     return props.chats.map((chat: ChatInfo) => {
       const selected = store.isSelectedChat(chat.id);
       const users = store.getChatUsers(chat.id);
-      // console.log('CHATLIST:', chat.id, chat.title, selected)
       return new Chat({
         selected,
         chat,

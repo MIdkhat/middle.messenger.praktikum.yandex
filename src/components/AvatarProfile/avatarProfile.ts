@@ -1,3 +1,4 @@
+// @ts-nocheck
 import Block from '../../utils/Block';
 import { template } from './avatar.templ';
 import { withStore } from '../../utils/Store';

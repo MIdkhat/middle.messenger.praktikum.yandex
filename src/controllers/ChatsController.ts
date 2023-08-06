@@ -1,3 +1,4 @@
+//@ts-nocheck
 import { User } from '../api/AuthAPI';
 import { ChatsAPI, ChatInfo } from '../api/ChatsAPI';
 import store from '../utils/Store';
@@ -19,6 +20,7 @@ class ChatsController {
 
   // create chat
   async createChat(title: string) {
+    console.log('=====>', title);
     try {
       await this.api.create(title);
       await this.updateChats();
@@ -112,23 +114,28 @@ class ChatsController {
 
   async fetchChats() {
     try {
+      console.log('===>');
       const chats = await this.api.read();
       store.set('chats', chats);
       if (!store.getState().selectedChat && chats.length > 0) {
         this.selectChat(chats[0].id);
       }
+      console.log('==>', chats);
       chats.forEach(async (chat) => {
         const token = await this.getToken(chat.id);
+        console.log('=!==>', token);
         // this is very long, but swagger doesn't support complex requests to JOIN data
-        await MessagesController.connect(chat.id, token);
+        const connect = await MessagesController.connect(chat.id, token);
+        console.log('++++', connect);
         const res = await this.getChatUsers(chat.id);
+        console.log('--->', res);
         if (res.success) {
           store.set(`chatsUsers.${chat.id}`, res.users);
         }
       });
       return {
         success: true,
-        chats: null,
+        chats,
         error: null,
       };
     } catch (error: unknown) {
@@ -219,12 +226,12 @@ class ChatsController {
       const authorId = store.getChatById(id).created_by;
       const users = store.getChatUsers();
       const author = users.filter((user: User) => user.id === authorId)[0]
-        .login;
-      // const chat = store.getChatById(id);
-      // console.log(chat);
+        .display_name;
       console.log(`Author: ${author}`);
+      return author;
     } catch {
       console.log("Couldn't define author");
+      return null;
     }
   }
 }

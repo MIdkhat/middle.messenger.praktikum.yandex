@@ -1,63 +1,82 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import { expect } from 'chai';
-import handlebars from 'handlebars';
-import { JSDOM } from 'jsdom';
-import { template } from './chatTop.templ';
+import { ChatTop } from './chatTop';
+import { ButtonAwesome } from '../Buttons/buttons';
+import { mockConsoleLog } from '../../utils/TestHelpers';
 
-const styles = {
-  'messages-header-container': 'messages-header-container-style',
-  hidden: 'hidden-style',
+const chatProps = {
+  selected: false,
+  id: 1,
+  title: 'TestChat',
+  created_by: 1,
+  avatar: 'cactus.png',
+  unread_count: 1,
+  last_message: {
+    user: {
+      id: 1,
+      first_name: 'test first name',
+      second_name: 'test second name',
+      display_name: 'test display name',
+      login: 'test_login',
+      email: 'test@email',
+      password: 'secretpassword',
+      phone: '12345678',
+      avatar: 'cactus.png',
+    },
+    time: '2023-07-29',
+    content: 'Test message',
+  },
+
+  users: [],
+  buttons: {
+    removeUserButton: new ButtonAwesome({
+      icon: 'fa fa-user-minus',
+      title: 'removeUser',
+      events: {
+        click: () => console.log('Click Me'),
+      },
+    }),
+    editChatButton: new ButtonAwesome({
+      icon: 'far fa-edit',
+      title: 'Edit Profile',
+      events: {
+        click: () => console.log('Click Me'),
+      },
+    }),
+  },
 };
 
-const data = {
-  styles,
-  selected: true,
-  avatarContainer: '<div class="avatar-container">Avatar Container</div>',
-  addUserButton: '<button class="add-user-button">Add User</button>',
-  removeUserButton: '<button class="remove-user-button">Remove User</button>',
-  editChatButton: '<button class="edit-chat-button">Edit Chat</button>',
-  deleteChatButton: '<button class="delete-chat-button">Delete Chat</button>',
-};
-describe('Top Chat Template Test', () => {
-  let render: Handlebars.TemplateDelegate<any> | null = null;
+describe('TopChat Template Test', () => {
+  let chatContainer;
 
   beforeEach(() => {
-    render = handlebars.compile(template);
+    const chat = new ChatTop(chatProps);
+    chatContainer = chat.getContent();
   });
 
-  it('should render the template with correct values', () => {
-    if (render) {
-      const renderedHTML = render(data);
-      const { document } = new JSDOM(renderedHTML).window;
-      const messagesHeaderContainer = document.querySelector(
-        `.${styles['messages-header-container']}`
-      );
-      expect(messagesHeaderContainer).to.exist;
+  it('Chat container exists', () => {
+    expect(chatContainer).to.exist;
+  });
 
-      // Test the content of each element
-      const avatarContainer =
-        messagesHeaderContainer?.querySelector('.avatar-container');
-      expect(avatarContainer?.outerHTML).to.equal(data.avatarContainer);
+  it('TopChat elements exist', () => {
+    expect(chatContainer).to.exist;
 
-      const addUserButton =
-        messagesHeaderContainer?.querySelector('.add-user-button');
-      expect(addUserButton?.outerHTML).to.equal(data.addUserButton);
+    const removeUserButton = chatContainer.querySelector(
+      'i[class="fa fa-user-minus"]'
+    );
+    expect(removeUserButton).to.exist;
 
-      const removeUserButton = messagesHeaderContainer?.querySelector(
-        '.remove-user-button'
-      );
-      expect(removeUserButton?.outerHTML).to.equal(data.removeUserButton);
+    const editChatButton = chatContainer.querySelector(
+      'i[class="far fa-edit"]'
+    );
+    expect(editChatButton).to.exist;
+  });
 
-      const editChatButton =
-        messagesHeaderContainer?.querySelector('.edit-chat-button');
-      expect(editChatButton?.outerHTML).to.equal(data.editChatButton);
-
-      const deleteChatButton = messagesHeaderContainer?.querySelector(
-        '.delete-chat-button'
-      );
-      expect(deleteChatButton?.outerHTML).to.equal(data.deleteChatButton);
-    } else {
-      throw new Error('Handlebars template render is not initialized.');
-    }
+  it('TopChat buttons click', () => {
+    const buttons = chatContainer.querySelectorAll('button[type="button"]');
+    buttons.forEach((button) => {
+      const consoleOutput = mockConsoleLog(button, 'click');
+      expect(consoleOutput).to.equal('Click Me');
+    });
   });
 });

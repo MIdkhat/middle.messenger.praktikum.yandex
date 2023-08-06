@@ -47,7 +47,7 @@ const formProps: FormProps = {
       label: 'Cancel',
       classes: ['button-cancel'],
       events: {
-        click: () => console.log('cancel'),
+        click: () => console.log('Click Me'),
       },
     }),
   ],
@@ -62,22 +62,35 @@ const formProps: FormProps = {
 };
 
 describe('Form Component Test', () => {
-  const form = new Form(formProps);
-  const formElement = form.getContent();
+  let formElement;
+  beforeEach(() => {
+    const form = new Form(formProps);
+    formElement = form.getContent();
+  });
 
-  it('should render the form template with correct values', () => {
+  it('Form elements exist', () => {
     expect(formElement).to.exist;
     if (formElement) {
       expect(formElement.tagName.toLowerCase()).to.equal('form');
       expect(formElement.getAttribute('action')).to.equal(
+        // eslint-disable-next-line no-script-url
         'javascript:void(0);'
       );
       expect(formElement.textContent?.trim()).to.contain('Form Title');
     }
   });
 
+  it('Cancel button clicks', () => {
+    const cancelButton = formElement.querySelector(
+      'button[type="button"]'
+    ) as HTMLButtonElement;
+    if (formElement) {
+      const consoleOutput = mockConsoleLog(cancelButton, 'click');
+      expect(consoleOutput).to.equal('Click Me');
+    }
+  });
+
   it('should call onSubmit function when the form is submitted', () => {
-    // Mock the console.log method to capture the output
     if (formElement) {
       const consoleOutput = mockConsoleLog(formElement, 'submit');
       expect(consoleOutput).to.equal('Form submitted');

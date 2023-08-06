@@ -76,7 +76,7 @@ class AuthController {
       await this.api.logout();
       router.go('/');
     } catch (e: unknown) {
-      console.error(e.message);
+      console.error(e);
     }
   }
 }

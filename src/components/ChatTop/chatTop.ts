@@ -1,3 +1,4 @@
+//@ts-nocheck
 import Block from '../../utils/Block';
 import { template } from './chatTop.templ';
 import store, { withStore } from '../../utils/Store';

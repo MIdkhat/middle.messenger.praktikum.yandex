@@ -28,7 +28,3 @@ export class Avatar extends Block<AvatarProps> {
     return this.compile(template, { ...this.props, styles });
   }
 }
-
-// console.log('---');
-// console.log(oldProps, newProps);
-// console.log(!isEqual(oldProps, newProps));

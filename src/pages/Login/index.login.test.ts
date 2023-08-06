@@ -1,48 +1,103 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import { expect } from 'chai';
-import handlebars from 'handlebars';
-import { JSDOM } from 'jsdom';
-import { template } from './chatTop.templ';
+import sinon from 'sinon';
+import { LoginPage } from './index.login';
+import { getAttachedEvents, testLink } from '../../utils/TestHelpers';
 
 describe('Login Page Test', () => {
-  let render: Handlebars.TemplateDelegate<any> | null = null;
+  let loginPageElement: HTMLElement;
 
   beforeEach(() => {
-    render = handlebars.compile(template);
+    const loginPage = new LoginPage();
+    loginPageElement = loginPage.getContent() as HTMLElement;
   });
 
-  it('should render the template correctly with data', () => {
-    // Mock data for the template
-    const loginFormData = {
-      login: 'john_doe',
-      password: 'secretpassword',
-      warning: 'Invalid credentials',
-    };
+  it('Test Login page elements exist', () => {
+    expect(loginPageElement).to.exist;
 
-    const renderedHTML = render(loginFormData);
-    const { document } = new JSDOM(renderedHTML).window;
+    const form = loginPageElement.querySelector('form') as HTMLFormElement;
+    expect(form).to.exist;
 
-    const mainElement = document.querySelector('main');
-    expect(mainElement).to.exist;
-
-    const loginInput = document.querySelector(
+    const loginInput = loginPageElement.querySelector(
       'input[name="login"]'
     ) as HTMLInputElement;
     expect(loginInput).to.exist;
-    expect(loginInput?.value).to.equal('john_doe');
 
-    const passwordInput = document.querySelector(
+    const passwordInput = loginPageElement.querySelector(
       'input[name="password"]'
     ) as HTMLInputElement;
     expect(passwordInput).to.exist;
-    expect(passwordInput?.value).to.equal('secretpassword');
 
-    const warningElement = document.querySelector('p');
+    const warningElement = loginPageElement.querySelector('p');
     expect(warningElement).to.exist;
-    expect(warningElement?.textContent).to.equal('Invalid credentials');
 
-    const registerLink = document.querySelector('span');
+    const registerLink = loginPageElement.querySelector('span');
     expect(registerLink).to.exist;
     expect(registerLink?.textContent).to.equal('Register new account');
+
+    const submitButton = loginPageElement.querySelector(
+      'button[type="submit"]'
+    ) as HTMLButtonElement;
+    expect(submitButton).to.exist;
   });
+
+  it('Test Login page inputs can be changed', () => {
+    const loginInput = loginPageElement.querySelector(
+      'input[name="login"]'
+    ) as HTMLInputElement;
+    loginInput.setAttribute('value', 'JohnDoe');
+    expect(loginInput?.value).to.equal('JohnDoe');
+
+    const passwordInput = loginPageElement.querySelector(
+      'input[name="password"]'
+    ) as HTMLInputElement;
+    passwordInput.setAttribute('value', 'secretpassword');
+    expect(passwordInput?.value).to.equal('secretpassword');
+  });
+
+  it('Test Button can be clicked', () => {
+    const submitButton = loginPageElement.querySelector(
+      'button[type="submit"]'
+    ) as HTMLButtonElement;
+
+    const submitHandler = sinon.spy();
+
+    submitButton.addEventListener('click', (event) => {
+      event.preventDefault();
+      submitHandler();
+    });
+    submitButton.click();
+
+    expect(submitHandler.calledOnce).to.be.true;
+  });
+
+  // it('Test Link can be clicked', () => {
+  //   const registerLink = loginPageElement.querySelector('span') as HTMLElement;
+  //   const submitHandler = sinon.spy();
+
+  //   registerLink.addEventListener('click', (event) => {
+  //     event.preventDefault();
+  //     submitHandler();
+  //   });
+  //   registerLink.click();
+
+  //   expect(submitHandler.calledOnce).to.be.true;
+
+  //   // const redirect = sinon.spy();
+
+  //   // registerLink?.addEventListener('click', (event) => {
+  //   //   event.preventDefault();
+  //   //   redirect();
+  //   // });
+  //   // registerLink?.click();
+
+  //   // expect(redirect.calledOnce).to.be.true;
+  //   // if (registerLink) {
+  //   //   testLink(
+  //   //     'http://localhost:3000/',
+  //   //     'http://localhost:3000/register',
+  //   //     registerLink
+  //   //   );
+  //   // }
+  // });
 });

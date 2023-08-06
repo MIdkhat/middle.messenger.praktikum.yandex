@@ -268,12 +268,5 @@ export const queryStringify = (data: Record<string, any>): string | never => {
   return queryStrings.join('&');
 };
 
-export const formDataToJson = (formData: FormData): Record<string, unknown> => {
-  const json: { [key: string]: any } = {};
-
-  formData.forEach((value, key) => {
-    json[key] = value;
-  });
-
-  return json;
-};
+export const formDataToJson = (formData: FormData): Record<string, unknown> =>
+  Object.fromEntries(formData.entries());

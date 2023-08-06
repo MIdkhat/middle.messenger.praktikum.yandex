@@ -11,18 +11,25 @@ const buttonProps: ButtonProps = {
   },
 };
 
-describe('Handlebars Button Template Test', () => {
-  const button = new Button(buttonProps);
-  const buttonElement = button.getContent();
+describe('Button Template Test', () => {
+  let buttonElement;
+  beforeEach(() => {
+    const button = new Button(buttonProps);
+    buttonElement = button.getContent();
+  });
 
-  it('should render the template with correct values', () => {
+  it('Avatar elements exist', () => {
     expect(buttonElement).to.exist;
     if (buttonElement) {
       expect(buttonElement.getAttribute('type')).to.equal('button');
       expect(buttonElement.getAttribute('disabled')).to.equal('');
       expect(buttonElement.textContent?.trim()).to.equal('Click Me');
+      expect(buttonElement).to.exist;
+    }
+  });
 
-      // Mock the console.log method to capture the output
+  it('button clicks', () => {
+    if (buttonElement) {
       const consoleOutput = mockConsoleLog(buttonElement, 'click');
       expect(consoleOutput).to.equal('Click Me');
     }
