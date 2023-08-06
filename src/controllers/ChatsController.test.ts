@@ -120,18 +120,4 @@ describe('Test ChatsController', () => {
       expect(author).to.be.equal(null);
     });
   });
-
-  // describe('fetchChats', () => {
-  //   it('should fetch and store chats and chat users', async () => {
-  //     const response = await chatsController.fetchChats();
-  //     // expect(getTokenSpy.withArgs(chatId).calledOnce).to.be.true;
-  //     // expect(response).to.deep.equal({
-  //     //   success: true,
-  //     //   chats,
-  //     //   error: null,
-  //     // });
-  //     // expect(chatsAPI.read.calledOnceWith()).to.be.true;
-  //     // expect(store.getState().chats).to.deep.equal(chats);
-  //   });
-  // });
 });
