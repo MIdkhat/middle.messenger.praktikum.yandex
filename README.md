@@ -7,21 +7,21 @@
 регистрации, просмотра сообщений, редактирования профиля и страницы с именем пользователя для
 просмотра сообщений.
 
-## Версия: 0.4 (В процессе разработки)
+## Версия: 0.4 (Проект закончен)
 
 Текущая версия находится в процессе разработки и представляет собой макет с ограниченной
 функциональностью.
 
-## Дезайн и алрес прототипа
+## Дезайн и адрес прототипа
 
 Дезайн для версии 0.1 можно найти по ссылке на
 [Figma](https://www.figma.com/file/3fadPRCD38XteX6sDx6hNk/Messenger?type=design&node-id=0%3A1&t=PYURXJQ9XpU48Zk7-1).
-Прототип на [Netlify](https://sprint-3--mid-messenger-sprint-3.netlify.app/)
+Прототип версии 0.4 на [Netlify](https://https://brilliant-sptint4.netlify.app/)
 
 ## Установка
 
 1.  Склонируйте репозиторий с помощью команды:  
-    `git clone https://github.com/MIdkhat/middle.messenger.praktikum.yandex.git` branch sprint_3
+    `git clone https://github.com/MIdkhat/middle.messenger.praktikum.yandex.git` branch sprint_4
 2.  Перейдите в каталог проекта: `cd middle.messenger.praktikum.yandex`
 3.  Установите зависимости, выполнив следующую команду (optional для разработчиков): `npm install`
 4.  Запустите приложение, выполнив команду: `npm run start`
@@ -34,6 +34,8 @@
 - `npm run build` — сборка приложения
 - `npm run preview` — превью собраного приложения
 - `npm run start` — сборка приложения и запуск превью
+- `npm run test`: - тестирование
+- `npm run precommit`: - скрипт который запускается перед каждым коммитом
 
 ## Примеры использования
 
@@ -64,6 +66,7 @@
 
 ### Изменения от версии 0.3
 
+Добавлен precommit
 Добавлены тесты:
 
 - для вспомогательных функций в utils
