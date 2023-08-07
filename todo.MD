@@ -73,7 +73,8 @@
 
 - `done` В pre-commit нужно запускать и линтеры, и тесты
 - `done` В precommit не нужно билдить проект. Нужно удалить npm run build
-- Один тест не проходит https://disk.yandex.ru/i/2k3xMGbByL6dQw
+- `done` Один тест не проходит https://disk.yandex.ru/i/2k3xMGbByL6dQw
+  у меня этот тест проходит
 
 ## Можно лучше
 
