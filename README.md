@@ -16,7 +16,7 @@
 
 Дезайн для версии 0.1 можно найти по ссылке на
 [Figma](https://www.figma.com/file/3fadPRCD38XteX6sDx6hNk/Messenger?type=design&node-id=0%3A1&t=PYURXJQ9XpU48Zk7-1).
-Прототип версии 0.4 на [Netlify](https://https://brilliant-sptint4.netlify.app/)
+Прототип версии 0.4 на [Netlify](https://deploy-preview-2--brilliant-sptint4.netlify.app/profile)
 
 ## Установка
 

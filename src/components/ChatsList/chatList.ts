@@ -1,4 +1,4 @@
-//@ts-nocheck
+// @ts-nocheck
 import Block from '../../utils/Block';
 import { template } from './chatList.templ';
 import { Chat } from '../Chat/chat';

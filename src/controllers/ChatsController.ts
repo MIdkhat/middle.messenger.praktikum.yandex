@@ -1,4 +1,4 @@
-//@ts-nocheck
+// @ts-nocheck
 import { User } from '../api/AuthAPI';
 import { ChatsAPI, ChatInfo } from '../api/ChatsAPI';
 import store from '../utils/Store';
@@ -20,7 +20,6 @@ class ChatsController {
 
   // create chat
   async createChat(title: string) {
-    console.log('=====>', title);
     try {
       await this.api.create(title);
       await this.updateChats();

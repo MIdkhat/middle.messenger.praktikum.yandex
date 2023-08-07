@@ -1,4 +1,4 @@
-//@ts-nocheck
+// @ts-nocheck
 import Block from '../../utils/Block';
 import store from '../../utils/Store';
 import { Routes } from '../../../index';
