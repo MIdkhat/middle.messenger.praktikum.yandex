@@ -1,8 +1,6 @@
 import Block from '../../utils/Block';
 import { template } from './avatar.templ';
-import * as stylesDefs from './styles.module.scss';
-
-const styles = stylesDefs.default;
+import styles from './styles.module.scss';
 
 interface AvatarProps {
   title: string;
@@ -30,7 +28,3 @@ export class Avatar extends Block<AvatarProps> {
     return this.compile(template, { ...this.props, styles });
   }
 }
-
-// console.log('---');
-// console.log(oldProps, newProps);
-// console.log(!isEqual(oldProps, newProps));

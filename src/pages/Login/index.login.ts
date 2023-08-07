@@ -88,7 +88,9 @@ export class LoginPage extends Block {
     if (!form) return;
     if (!validateForm(this.children.loginform as Block)) return;
     const formData = new FormData(form);
-    const data = formDataToJson(formData) as unknown as SigninData;
+    const data = Object.fromEntries(
+      formData.entries()
+    ) as unknown as SigninData;
 
     const res = await AuthController.signin(data);
     if (!res.success) {

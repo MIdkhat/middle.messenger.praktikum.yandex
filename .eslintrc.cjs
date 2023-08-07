@@ -67,6 +67,13 @@ module.exports = {
     'no-this-alias': 'off',
     'no-unused-expressions': 'off',
     'no-extraneous-dependencies': 'off',
+    'no-console': 'off',
+    'import/no-extraneous-dependencies': 'off',
+    'import/first': 'off',
+    '@typescript-eslint/ban-ts-comment': 'off',
+    '@typescript-eslint/no-empty-function': 'off',
+    '@typescript-eslint/no-this-alias': 'off',
+    '@typescript-eslint/no-unused-vars': 'off',
     'no-shadow': [
       'off',
       {

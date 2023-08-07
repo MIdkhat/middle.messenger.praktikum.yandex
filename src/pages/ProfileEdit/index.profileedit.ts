@@ -4,26 +4,24 @@ import {
   formDataToJson,
   redirect,
   isEqual,
-} from '../../utils/Helpers.js';
+  setStyles,
+} from '../../utils/Helpers';
 import { template } from './profileedit.templ';
 import { Container } from '../../components/Containers/containers';
 import { Button, ButtonAwesome } from '../../components/Buttons/buttons';
 import { Input } from '../../components/Input/input';
-import { Avatar } from '../../components/AvatarProfile/avatarProfile.js';
+import { Avatar } from '../../components/AvatarProfile/avatarProfile';
 import { Form } from '../../components/Form/form';
-import { Tag } from '../../components/Tags/tags.js';
-import { Routes } from '../../../index.js';
+import { Tag } from '../../components/Tags/tags';
+import { Routes } from '../../../index';
 import { inputsData, InputData } from '../../../public/inputsData';
-import { ProfileProps } from '../Profile/index.profile.js';
-import store, { withStore } from '../../utils/Store';
-import { User } from '../../api/AuthAPI.js';
-import { validateForm } from '../../utils/FormValidator.js';
+import { ProfileProps } from '../Profile/index.profile';
+import { withStore } from '../../utils/Store';
+import { User } from '../../api/AuthAPI';
+import { validateForm } from '../../utils/FormValidator';
 import { UserUpdate } from '../../api/UserAPI';
-import { setStyles } from '../../utils/Helpers';
-import UserController from '../../controllers/UserController.js';
-import * as stylesDefs from './styles.module.scss';
-
-const styles = stylesDefs.default;
+import UserController from '../../controllers/UserController';
+import styles from './styles.module.scss';
 
 interface EditProfileProps extends ProfileProps {
   password: string;
@@ -327,7 +325,7 @@ export class ProfileEditPageBase extends Block<EditProfileProps> {
     if (!form) return;
     if (!validateForm(this.children.editform as Block)) return;
     const formData = new FormData(form);
-    const data = formDataToJson(formData) as UserUpdate;
+    const data = formDataToJson(formData) as unknown as UserUpdate;
     const res = await UserController.editProfile(data);
     if (res.success) {
       alert('User details updated');

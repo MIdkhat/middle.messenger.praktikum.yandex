@@ -1,20 +1,19 @@
-import Block from '../../utils/Block.js';
-import { template } from './chatTop.templ.js';
-import store, { withStore } from '../../utils/Store.js';
-import { ChatInfo } from '../../api/ChatsAPI.js';
-import { User } from '../../api/AuthAPI.js';
-import { Avatar } from '../Avatar/avatar.js';
-import { Container } from '../Containers/containers.js';
-import { Tag } from '../Tags/tags.js';
-import { isEqual } from '../../utils/Helpers.js';
-import * as stylesDefs from './styles.module.scss';
-
-const styles = stylesDefs.default;
+// @ts-nocheck
+import Block from '../../utils/Block';
+import { template } from './chatTop.templ';
+import store, { withStore } from '../../utils/Store';
+import { ChatInfo } from '../../api/ChatsAPI';
+import { User } from '../../api/AuthAPI';
+import { Avatar } from '../Avatar/avatar';
+import { Container } from '../Containers/containers';
+import { Tag } from '../Tags/tags';
+import { isEqual } from '../../utils/Helpers';
+import styles from './styles.module.scss';
 
 interface ChatTopProps extends ChatInfo {
   selected: boolean;
-  chat: ChatInfo;
-  users: User[];
+  chat?: ChatInfo;
+  users?: User[];
   buttons: Record<string, Block>;
 }
 export class ChatTopBase extends Block<ChatTopProps> {

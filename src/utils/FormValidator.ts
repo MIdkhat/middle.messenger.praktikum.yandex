@@ -1,13 +1,15 @@
 import { Input } from '../components/Input/input';
+import { Container } from '../components/Containers/containers';
 import Block from './Block';
 
-export const findInputs = (obj: any): any[] => {
-  let elements: Input[] = [];
+export const findInputs = (obj: any): Container[] => {
+  let elements: Container[] = [];
 
   function traverseObject(obj: any) {
     Object.entries(obj).forEach(([key, value]) => {
       if (key === 'inputs') {
-        elements = [...elements, ...value];
+        const inputs = value as Container[];
+        elements = [...elements, ...inputs];
       }
 
       if (typeof value === 'object' && value !== null && key === 'children') {
@@ -27,9 +29,9 @@ export const findInputs = (obj: any): any[] => {
 };
 
 export const validateForm = (form: Block): boolean => {
-  const inputContainers = findInputs(form) as Block[];
+  const inputContainers = findInputs(form);
   const inputs = inputContainers.map((container) => {
-    const content = container.children.content as Block[];
+    const content = container.children.content as Input[];
     return content[1];
   });
   // validate each input on regex

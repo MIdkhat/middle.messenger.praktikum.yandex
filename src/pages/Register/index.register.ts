@@ -3,15 +3,15 @@ import { template } from './register.tmpl';
 import { Container } from '../../components/Containers/containers';
 import { Button } from '../../components/Buttons/buttons';
 import { Input } from '../../components/Input/input';
-import { Tag } from '../../components/Tags/tags.js';
+import { Tag } from '../../components/Tags/tags';
 import { Link } from '../../components/Link/link';
 import { Form } from '../../components/Form/form';
 import { clearFormInputs, formDataToJson, redirect } from '../../utils/Helpers';
 import { inputsData, InputData } from '../../../public/inputsData';
 import AuthController from '../../controllers/AuthController';
-import { SignupData } from '../../api/AuthAPI.js';
-import { Routes } from '../../../index.js';
-import { validateForm } from '../../utils/FormValidator.js';
+import { SignupData } from '../../api/AuthAPI';
+import { Routes } from '../../../index';
+import { validateForm } from '../../utils/FormValidator';
 
 export class RegisterPage extends Block {
   constructor() {
@@ -85,7 +85,7 @@ export class RegisterPage extends Block {
     if (!form) return;
     if (!validateForm(this.children.form as Block)) return;
     const formData = new FormData(form);
-    const data = formDataToJson(formData) as SignupData;
+    const data = formDataToJson(formData) as unknown as SignupData;
 
     const res = await AuthController.signup(data);
     if (!res.success) {

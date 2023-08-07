@@ -1,35 +1,28 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import { expect } from 'chai';
-import handlebars from 'handlebars';
-import { JSDOM } from 'jsdom';
-import { template } from './avatar.templ';
+import { Avatar } from './avatar';
 
-describe('Handlebars Image Template Test', () => {
-  let render: Handlebars.TemplateDelegate<any> | null = null;
+const avatarProps = {
+  src: './public/images/cactus.png',
+  class: ['img-thumbnail', 'rounded'],
+  title: 'Image Title',
+};
 
+describe('Avatar Template Test', () => {
+  let avatarElement;
   beforeEach(() => {
-    render = handlebars.compile(template);
+    const avatar = new Avatar(avatarProps);
+    avatarElement = avatar.getContent();
   });
 
   it('should render the template with correct values', () => {
-    const data = {
-      src: 'path/to/image.jpg',
-      class: ['img-thumbnail', 'rounded'],
-      title: 'Image Title',
-    };
-
-    if (render) {
-      const renderedHTML = render(data);
-      const { document } = new JSDOM(renderedHTML).window;
-      const imgElement = document.querySelector('img');
-      expect(imgElement).to.exist;
-      expect(imgElement?.getAttribute('src')).to.equal('path/to/image.jpg');
-      expect(imgElement?.classList.contains('img-thumbnail')).to.be.true;
-      expect(imgElement?.classList.contains('rounded')).to.be.true;
-      expect(imgElement?.getAttribute('alt')).to.equal('Image Title');
-      expect(imgElement?.getAttribute('title')).to.equal('Image Title');
-    } else {
-      throw new Error('Handlebars template render is not initialized.');
-    }
+    expect(avatarElement).to.exist;
+    expect(avatarElement?.getAttribute('src')).to.equal(
+      'https://ya-praktikum.tech/api/v2/resources./public/images/cactus.png'
+    );
+    expect(avatarElement?.classList.contains('img-thumbnail')).to.be.true;
+    expect(avatarElement?.classList.contains('rounded')).to.be.true;
+    expect(avatarElement?.getAttribute('alt')).to.equal('Image Title');
+    expect(avatarElement?.getAttribute('title')).to.equal('Image Title');
   });
 });

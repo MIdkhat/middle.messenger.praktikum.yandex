@@ -1,9 +1,7 @@
 import Block from '../../utils/Block';
 import { template } from './error.templ';
 import { Link } from '../../components/Link/link';
-import * as stylesDefs from './styles.module.scss';
-
-const styles = stylesDefs.default;
+import styles from './styles.module.scss';
 
 export class ErrorPage404 extends Block {
   constructor() {

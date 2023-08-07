@@ -14,6 +14,12 @@ type Options = {
   data?: any;
 };
 
+type HTTPMethod<Response = void> = (
+  path: string,
+  data?: unknown,
+  content_type?: string
+) => Promise<Response>;
+
 export default class HTTPTransport {
   static API_URL = 'https://ya-praktikum.tech/api/v2';
   protected endpoint: string;
@@ -22,50 +28,24 @@ export default class HTTPTransport {
     this.endpoint = `${HTTPTransport.API_URL}${endpoint}`;
   }
 
-  public get<Response>(path = '/', data = {}): Promise<Response> {
-    const query = queryStringify(data);
-    return this.request<Response>(`${this.endpoint}${path}?${query}`);
-  }
+  public get: HTTPMethod = (path = '/', data = {}) =>
+    this.request(this.endpoint + path, { data, method: Method.Get });
 
-  // create chat  '/chats', { title: title }
-  public post<Response = void>(
-    path: string,
-    data?: unknown
-  ): Promise<Response> {
-    return this.request<Response>(this.endpoint + path, {
-      method: Method.Post,
+  public post: HTTPMethod = (path, data = {}) =>
+    this.request(this.endpoint + path, { data, method: Method.Post });
+
+  public put: HTTPMethod = (path, data = {}, content_type = 'json') =>
+    this.request(this.endpoint + path, {
       data,
-    });
-  }
-
-  public put<Response = void>(
-    path: string,
-    data: unknown,
-    content_type?: string
-  ): Promise<Response> {
-    return this.request<Response>(this.endpoint + path, {
       method: Method.Put,
-      data,
       content_type,
     });
-  }
 
-  public patch<Response = void>(
-    path: string,
-    data: unknown
-  ): Promise<Response> {
-    return this.request<Response>(this.endpoint + path, {
-      method: Method.Patch,
-      data,
-    });
-  }
+  public patch: HTTPMethod = (path, data = {}) =>
+    this.request(this.endpoint + path, { data, method: Method.Patch });
 
-  public delete<Response>(path: string, data?: unknown): Promise<Response> {
-    return this.request<Response>(this.endpoint + path, {
-      method: Method.Delete,
-      data,
-    });
-  }
+  public delete: HTTPMethod = (path, data = {}) =>
+    this.request(this.endpoint + path, { data, method: Method.Delete });
 
   // replacement to fetch
   // XMLHttpRequest is defined in lib.dom

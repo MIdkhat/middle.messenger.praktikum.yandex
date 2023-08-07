@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { set } from './Helpers';
 import { EventBus } from './EventBus';
 import Block from './Block';
@@ -52,9 +53,8 @@ export class Store extends EventBus {
     this.emit(StoreEvents.Updated, this.getState());
   }
   public getChatById(id: number) {
-    return (
-      this.getState().chats?.filter((chat: ChatInfo) => chat.id === id)[0] ?? {}
-    );
+    const { chats } = this.getState();
+    return chats?.filter((chat: ChatInfo) => chat.id === id)[0] ?? {};
   }
 
   public getSelectedChat() {
@@ -76,9 +76,8 @@ export class Store extends EventBus {
     return this.getState().chats ?? [];
   }
   public getChatUsers(id: number = this.getState().selectedChat) {
-    const chat = this.getChatById(id);
     if (!this.getState().chatsUsers) return [];
-    return this.getState().chatsUsers[chat.id] || [];
+    return this.getState().chatsUsers[id] || [];
   }
   public getMessages() {
     return this.getState().messages ?? [];

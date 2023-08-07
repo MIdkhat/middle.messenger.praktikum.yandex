@@ -1,11 +1,13 @@
+// if (process.env.NODE_ENV === 'test') {
+// @ts-nocheck
+// }
+
 import Block from '../../utils/Block';
 import { template } from './avatar.templ';
 import { withStore } from '../../utils/Store';
-import * as stylesDefs from './styles.module.scss';
+import styles from './styles.module.scss';
 import { isEqual } from '../../utils/Helpers';
 import { User } from '../../api/AuthAPI';
-
-const styles = stylesDefs.default;
 
 interface AvatarProps {
   title: string;

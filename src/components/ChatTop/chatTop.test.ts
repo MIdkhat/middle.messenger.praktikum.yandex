@@ -1,47 +1,82 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import { expect } from 'chai';
-import handlebars from 'handlebars';
-import { JSDOM } from 'jsdom';
-import { template } from './chatTop.templ.js';
+import { ChatTop } from './chatTop';
+import { ButtonAwesome } from '../Buttons/buttons';
+import { mockConsoleLog } from '../../utils/TestHelpers';
 
-describe('Top Chat Template Test', () => {
-  let render: Handlebars.TemplateDelegate<any> | null = null;
+const chatProps = {
+  selected: false,
+  id: 1,
+  title: 'TestChat',
+  created_by: 1,
+  avatar: 'cactus.png',
+  unread_count: 1,
+  last_message: {
+    user: {
+      id: 1,
+      first_name: 'test first name',
+      second_name: 'test second name',
+      display_name: 'test display name',
+      login: 'test_login',
+      email: 'test@email',
+      password: 'secretpassword',
+      phone: '12345678',
+      avatar: 'cactus.png',
+    },
+    time: '2023-07-29',
+    content: 'Test message',
+  },
+
+  users: [],
+  buttons: {
+    removeUserButton: new ButtonAwesome({
+      icon: 'fa fa-user-minus',
+      title: 'removeUser',
+      events: {
+        click: () => console.log('Click Me'),
+      },
+    }),
+    editChatButton: new ButtonAwesome({
+      icon: 'far fa-edit',
+      title: 'Edit Profile',
+      events: {
+        click: () => console.log('Click Me'),
+      },
+    }),
+  },
+};
+
+describe('TopChat Template Test', () => {
+  let chatContainer;
 
   beforeEach(() => {
-    render = handlebars.compile(template);
+    const chat = new ChatTop(chatProps);
+    chatContainer = chat.getContent();
   });
 
-  it('should render the template with correct values', () => {
-    const styles = {
-      'messages-header-container': 'messages-header-container-style',
-      hidden: 'hidden-style',
-    };
-
-    const data = {
-      styles,
-      selected: true,
-      avatarContainer: '<div>Avatar Container</div>',
-      addUserButton: '<button>Add User</button>',
-      removeUserButton: '<button>Remove User</button>',
-      editChatButton: '<button>Edit Chat</button>',
-      deleteChatButton: '<button>Delete Chat</button>',
-    };
-
-    if (render) {
-      const renderedHTML = render(data);
-      const { document } = new JSDOM(renderedHTML).window;
-      const messagesHeaderContainer = document.querySelector(
-        `.${styles['messages-header-container']}`
-      );
-      expect(messagesHeaderContainer).to.exist;
-
-      // Test other elements and attributes as needed
-      // You can use querySelector and other DOM methods to check the expected content
-      // and classes of the elements.
-    } else {
-      throw new Error('Handlebars template render is not initialized.');
-    }
+  it('Chat container exists', () => {
+    expect(chatContainer).to.exist;
   });
 
-  // Add more test cases here if needed
+  it('TopChat elements exist', () => {
+    expect(chatContainer).to.exist;
+
+    const removeUserButton = chatContainer.querySelector(
+      'i[class="fa fa-user-minus"]'
+    );
+    expect(removeUserButton).to.exist;
+
+    const editChatButton = chatContainer.querySelector(
+      'i[class="far fa-edit"]'
+    );
+    expect(editChatButton).to.exist;
+  });
+
+  it('TopChat buttons click', () => {
+    const buttons = chatContainer.querySelectorAll('button[type="button"]');
+    buttons.forEach((button) => {
+      const consoleOutput = mockConsoleLog(button, 'click');
+      expect(consoleOutput).to.equal('Click Me');
+    });
+  });
 });

@@ -1,16 +1,14 @@
-import Block from '../../utils/Block.js';
-import { Routes } from '../../../index.js';
-import { template, detailTemplate } from './profile.templ.js';
-import { redirect, isEqual } from '../../utils/Helpers.js';
-import { ButtonAwesome } from '../../components/Buttons/buttons.js';
-import { Avatar } from '../../components/AvatarProfile/avatarProfile.js';
-import { Container } from '../../components/Containers/containers.js';
+import Block from '../../utils/Block';
+import { Routes } from '../../../index';
+import { template, detailTemplate } from './profile.templ';
+import { redirect, isEqual } from '../../utils/Helpers';
+import { ButtonAwesome } from '../../components/Buttons/buttons';
+import { Avatar } from '../../components/AvatarProfile/avatarProfile';
+import { Container } from '../../components/Containers/containers';
 import { withStore } from '../../utils/Store';
-import { User } from '../../api/AuthAPI.js';
+import { User } from '../../api/AuthAPI';
 import AuthController from '../../controllers/AuthController';
-import * as stylesDefs from './styles.module.scss';
-
-const styles = stylesDefs.default;
+import styles from './styles.module.scss';
 
 interface DetailsProps {
   value: string | number;

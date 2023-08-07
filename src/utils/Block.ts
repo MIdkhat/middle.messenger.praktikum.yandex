@@ -174,7 +174,7 @@ export default class Block<P extends Record<string, any> = any> {
    * @param {template} template (handlebars)
    * @param {} context with the props and children
    * */
-  protected compile(template: (context: any) => string, context: any) {
+  protected compile(template: string, context: any) {
     // console.log(context)
     // 1. create an object with the props and children,
     // later will add dummy HTML elements for each to keep the tree

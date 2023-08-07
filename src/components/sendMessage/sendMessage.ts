@@ -1,12 +1,10 @@
 import Block from '../../utils/Block';
-import { templateSendMessage } from './sendMessgae.js';
-import { ButtonAwesome } from '../../components/Buttons/buttons.js';
-import { TextArea } from '../TextArea/textarea.js';
-import MessageController from '../../controllers/MessagesController.js';
-import * as stylesDefs from './styles.module.scss';
-import store from '../../utils/Store.js';
-
-const styles = stylesDefs.default;
+import { templateSendMessage } from './sendMessgae';
+import { ButtonAwesome } from '../../components/Buttons/buttons';
+import { TextArea } from '../TextArea/textarea';
+import MessageController from '../../controllers/MessagesController';
+import styles from './styles.module.scss';
+import store from '../../utils/Store';
 
 // container for sendMessages
 export class SendMessage extends Block {

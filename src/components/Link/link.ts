@@ -1,13 +1,12 @@
 import Block from '../../utils/Block';
-import { PropsWithRouter, withRouter } from '../../utils/withRouter.js';
-import { template } from './link.templ.js';
-import { redirect } from '../../utils/Helpers.js';
-import { Routes } from '../../../index.js';
+import { PropsWithRouter, withRouter } from '../../utils/withRouter';
+import { template } from './link.templ';
+import { redirect } from '../../utils/Helpers';
+import { Routes } from '../../../index';
 import Router from '../../utils/Router';
-import * as stylesDefs from './styles.module.scss';
+import styles from './styles.module.scss';
 
-const styles = stylesDefs.default;
-interface LinkProps extends PropsWithRouter {
+export interface LinkProps extends PropsWithRouter {
   to: Routes;
   label: string;
   router?: typeof Router;

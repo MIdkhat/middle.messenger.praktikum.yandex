@@ -5,13 +5,14 @@
   "compilerOptions": {
     "target": "ES6",
     "useDefineForClassFields": true,
-    "module": "ES6",
+    "module": "CommonJS",
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "skipLibCheck": true,
     "outDir": "dist",
     "esModuleInterop": true,
     "moduleResolution": "node",
-
+    "baseUrl": "./src",
+    "allowSyntheticDefaultImports": true,
     /* Bundler mode */
     "resolveJsonModule": true,
     "isolatedModules": true,

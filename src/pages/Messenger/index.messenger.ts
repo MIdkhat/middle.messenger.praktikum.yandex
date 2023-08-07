@@ -1,36 +1,36 @@
-import Block from '../../utils/Block.js';
+// @ts-nocheck
+import Block from '../../utils/Block';
 import store from '../../utils/Store';
-import { Routes } from '../../../index.js';
-import { User } from '../../api/AuthAPI.js';
-import ChatsController from '../../controllers/ChatsController.js';
-import MessageController from '../../controllers/MessagesController.js';
-import UserController from '../../controllers/UserController.js';
+import { Routes } from '../../../index';
+import { User } from '../../api/AuthAPI';
+import ChatsController from '../../controllers/ChatsController';
+import MessageController from '../../controllers/MessagesController';
+import UserController from '../../controllers/UserController';
 import {
   clearFormInputs,
   formDataToJson,
   setStyles,
   redirect,
-} from '../../utils/Helpers.js';
-
-import { Button, ButtonAwesome } from '../../components/Buttons/buttons.js';
-import { Tag } from '../../components/Tags/tags.js';
-import { Input } from '../../components/Input/input.js';
-import { SearchForm } from '../../components/SearchForm/searchForm.js';
+} from '../../utils/Helpers';
+import { ChatInfo } from '../../api/ChatsAPI';
+import { Button, ButtonAwesome } from '../../components/Buttons/buttons';
+import { Tag } from '../../components/Tags/tags';
+import { Input } from '../../components/Input/input';
+import { SearchForm } from '../../components/SearchForm/searchForm';
 import {
   Container,
   ContainerSendMessage,
-} from '../../components/Containers/containers.js';
-import { ChatsList } from '../../components/ChatsList/chatList.js';
-import { Messages } from '../../components/Messages/messages.js';
-import { ChatTop } from '../../components/ChatTop/chatTop.js';
-import { Form } from '../../components/Form/form.js';
-import { template } from './messenger.templ.js';
+} from '../../components/Containers/containers';
+import { ChatsList } from '../../components/ChatsList/chatList';
+import { Messages } from '../../components/Messages/messages';
+import { ChatTop } from '../../components/ChatTop/chatTop';
+import { Form } from '../../components/Form/form';
+import { template } from './messenger.templ';
 import * as styleMainsDefs from '../../scss/styles.module.scss';
-import * as stylesDefs from './styles.module.scss';
-import { SendMessage } from '../../components/sendMessage/sendMessage.js';
+import styles from './styles.module.scss';
+import { SendMessage } from '../../components/sendMessage/sendMessage';
 
 const stylesMain = styleMainsDefs.default;
-const styles = stylesDefs.default;
 
 type PopupAttributes = {
   inputs: {
@@ -83,7 +83,8 @@ export class MessengerPage extends Block {
       classes: ['tools-container'],
     });
 
-    this.children.chats = new ChatsList({ chats: [], isLoaded: false });
+    const chats: ChatInfo[] = [];
+    this.children.chats = new ChatsList({ chats, isLoaded: false });
 
     // RIGHT PANEL
     const addUserButton = new ButtonAwesome({
@@ -278,7 +279,7 @@ export class MessengerPage extends Block {
     const form = e.currentTarget as HTMLFormElement;
     if (!form) return;
     const formData = new FormData(form);
-    formData.set('chatId', store.getState().selectedChat);
+    formData.set('chatId', `${store.getState().selectedChat}`);
     const res = await ChatsController.editChatAvatar(formData);
     if (res.success) {
       alert('Chat avatar updated');

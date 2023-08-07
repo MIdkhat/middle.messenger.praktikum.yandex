@@ -2,7 +2,6 @@
   "name": "messenger",
   "private": true,
   "version": "0.0.0",
-  "type": "module",
   "browserslist": "last 2 versions",
   "engines": {
     "node": "16.13.2"
@@ -15,8 +14,9 @@
     "start": "vite build; vite preview --port 3000",
     "lint:eslint": "eslint src",
     "lint:stylelint": "stylelint \"src/**/*.scss\"",
-    "test": "mocha --require ts-node/register './src/**/*.test.ts'",
-    "precommit": "npm run test && npm run build"
+    "lint:staged": "lint-staged",
+    "test": "mocha --require ts-node/register --require .mochaConfig.cjs \"src/utils/Helpers.test.ts\"",
+    "precommit": "npm run test && npm run lint:staged && npm run lint:stylelint"
   },
   "husky": {
     "hooks": {
@@ -27,6 +27,7 @@
     "@types/chai": "^4.3.5",
     "@types/jsdom": "^21.1.1",
     "@types/mocha": "^10.0.1",
+    "@types/puppeteer": "^7.0.4",
     "@types/sinon": "^10.0.15",
     "autoprefixer": "^10.4.14",
     "chai": "^4.3.7",
@@ -34,13 +35,15 @@
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-standard-with-typescript": "^36.1.0",
     "eslint-plugin-prettier": "^5.0.0",
-    "husky": "^8.0.3",
+    "husky": "^4.3.8",
     "ignore-styles": "^5.0.1",
     "jsdom": "^22.1.0",
+    "lint-staged": "^13.2.3",
     "mocha": "^10.2.0",
-    "nodemon": "^2.0.22",
+    "nodemon": "^3.0.1",
     "postcss": "^8.4.24",
     "postcss-normalize": "^10.0.1",
+    "puppeteer": "^21.0.1",
     "sass": "^1.63.3",
     "sinon": "^15.2.0",
     "stylelint": "^15.9.0",
@@ -51,11 +54,15 @@
     "vite": "^4.3.9"
   },
   "dependencies": {
+    "css-modules-require-hook": "^1.0.11",
     "eslint": "^8.45.0",
     "express": "^4.18.2",
     "express-history-api-fallback": "^2.2.1",
+    "g": "^2.0.1",
     "handlebars": "^4.7.7",
     "nanoid": "3",
-    "netlify-cli": "^15.4.1"
+    "netlify-cli": "^15.4.1",
+    "node-sass": "^9.0.0",
+    "word-wrap": "^1.2.5"
   }
 }
