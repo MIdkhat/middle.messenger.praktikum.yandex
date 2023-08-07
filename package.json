@@ -9,12 +9,14 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "build:scss": "sass src/**/*.scss --style compressed",
     "preview": "vite preview --port 8080",
     "start": "vite build; vite preview --port 3000",
     "lint:eslint": "eslint src",
     "lint:stylelint": "stylelint \"src/**/*.scss\"",
+    "lint:staged": "lint-staged",
     "test": "mocha --require ts-node/register --require .mochaConfig.cjs \"src/utils/Helpers.test.ts\"",
-    "precommit": "npm run test && npm run lint:eslint && npm run lint:stylelint"
+    "precommit": "npm run test && npm run lint:staged && npm run lint:stylelint"
   },
   "husky": {
     "hooks": {
@@ -36,6 +38,7 @@
     "husky": "^4.3.8",
     "ignore-styles": "^5.0.1",
     "jsdom": "^22.1.0",
+    "lint-staged": "^13.2.3",
     "mocha": "^10.2.0",
     "nodemon": "^3.0.1",
     "postcss": "^8.4.24",
