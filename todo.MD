@@ -75,6 +75,7 @@
 - `done` В precommit не нужно билдить проект. Нужно удалить npm run build
 - `done` Один тест не проходит https://disk.yandex.ru/i/2k3xMGbByL6dQw
   у меня этот тест проходит
+  https://drive.google.com/file/d/13M3xP3Y3WRaRM_M0m2xddHcmkf2HyMUH/view?usp=sharing
 
 ## Можно лучше
 
